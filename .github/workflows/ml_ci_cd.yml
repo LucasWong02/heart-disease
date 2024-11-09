@@ -1,0 +1,21 @@
+name: Modelops deploy
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  repository_dispatch:
+    types: [ml_ci_cd]
+jobs:
+  ml_ci_cd:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: python version
+      run: python --version
+    - name: list directory
+      run: ls -la
+    - name: install packages
+      run: pip install -r requirements.txt
+    - name: train model
+      run: python model/train.py
